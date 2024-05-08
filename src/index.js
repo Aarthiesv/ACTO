@@ -1,17 +1,37 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./component/login/Login";
+import SignUp from "./component/login/SignUp";
+import Landing from "./component/landing/Landing";
+import ActodoList from "./component/pages/ActodoList";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const App = () => {
+  const [user, SetUser] = useState([
+    {
+      id: 1,
+      userName: "aarthi",
+      password: "123",
+    },
+  ]);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login user={user} SetUser={SetUser} />} />
+          <Route
+            path="/signup"
+            element={<SignUp user={user} SetUser={SetUser} />}
+          />
+          <Route path="/actodo" element={<ActodoList />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+};
+
+export default App;
+
+ReactDOM.render(<App />, document.getElementById("root"));
